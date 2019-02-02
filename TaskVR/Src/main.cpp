@@ -1,53 +1,17 @@
 #include "main.h"
 #include "adc.h"
 #include "dma.h"
+#include "iwdg.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 void SystemClock_Config(void);
-<<<<<<< HEAD
 
 int main(void)
 {
   HAL_Init();
   SystemClock_Config();
-=======
-void initAllPerpherals(void);
-
-int main(void)
-{
-	initAllPerpherals();
-	HAL_UART_Transmit_IT(&huart1, (uint8_t*)"str\r\n", sizeof("str\r\n"));
-	while (1)
-	{
-		HAL_IWDG_Refresh(&hiwdg);
-
-		HAL_Delay(100);
-	}
-}
-
-<<<<<<< HEAD
-
-
-void initAllPerpherals(void)
-{
-	HAL_Init();
-	SystemClock_Config();
-	MX_GPIO_Init();
-	MX_DMA_Init();
-	MX_USART1_UART_Init();
-	MX_ADC3_Init();
-	MX_TIM3_Init();
-	MX_TIM2_Init();
-	MX_TIM4_Init();
-	MX_TIM5_Init();
-	MX_IWDG_Init();
-}
-
-=======
-  /* Initialize all configured peripherals */
->>>>>>> parent of 13fe681... Revert
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_USART1_UART_Init();
@@ -56,60 +20,39 @@ void initAllPerpherals(void)
   MX_TIM2_Init();
   MX_TIM4_Init();
   MX_TIM5_Init();
-  /* USER CODE BEGIN 2 */
-<<<<<<< HEAD
+  MX_IWDG_Init();
 
-  /* USER CODE END 2 */
 
-=======
-
-<<<<<<< HEAD
   HAL_UART_Transmit_IT(&huart1, (uint8_t*)"str\r\n", sizeof("str\r\n"));
   while (1)
   {
 
 	  HAL_IWDG_Refresh(&hiwdg);
 
-=======
-  /* USER CODE END 2 */
-
->>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-	  HAL_UART_Transmit_IT(&huart1, (uint8_t*)"str\r\n", sizeof("str\r\n"));
->>>>>>> parent of 13fe681... Revert
 	  HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
 
-
-<<<<<<< HEAD
->>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
-=======
->>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
+  /**Configure the main internal regulator output voltage
+  */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
-<<<<<<< HEAD
-
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
-=======
   /**Initializes the CPU, AHB and APB busses clocks
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-<<<<<<< HEAD
->>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
-=======
->>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -130,8 +73,20 @@ void SystemClock_Config(void)
   }
 }
 
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
+
+  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT

@@ -7,11 +7,23 @@
 #include "gpio.h"
 
 void SystemClock_Config(void);
-void initPerepherlas(void);
 
 int main(void)
 {
-	initPerepherlas();
+
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_USART1_UART_Init();
+  MX_ADC3_Init();
+  MX_TIM3_Init();
+  MX_TIM2_Init();
+  MX_TIM4_Init();
+  MX_TIM5_Init();
+  MX_IWDG_Init();
+
+
 
   while (1)
   {
@@ -20,23 +32,6 @@ int main(void)
 
 	  HAL_Delay(100);
   }
-}
-
-
-
-void initPerepherlas(void)
-{
-	HAL_Init();
-	SystemClock_Config();
-	MX_GPIO_Init();
-	MX_DMA_Init();
-	MX_USART1_UART_Init();
-	MX_ADC3_Init();
-	MX_TIM3_Init();
-	MX_TIM2_Init();
-	MX_TIM4_Init();
-	MX_TIM5_Init();
-	MX_IWDG_Init();
 }
 
 void SystemClock_Config(void)

@@ -49,9 +49,15 @@ void initAllPerpherals(void)
   MX_TIM4_Init();
   MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
+<<<<<<< HEAD
 
   /* USER CODE END 2 */
 
+=======
+
+  /* USER CODE END 2 */
+
+>>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -63,6 +69,9 @@ void initAllPerpherals(void)
 }
 
 
+<<<<<<< HEAD
+>>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
+=======
 >>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
 void SystemClock_Config(void)
 {
@@ -78,6 +87,9 @@ void SystemClock_Config(void)
   /**Initializes the CPU, AHB and APB busses clocks
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+<<<<<<< HEAD
+>>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
+=======
 >>>>>>> parent of a8a8d32... feat(IWDG): add WatchDog
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;

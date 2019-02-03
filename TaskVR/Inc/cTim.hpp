@@ -20,14 +20,13 @@ public:
 
 	HAL_StatusTypeDef start();
 private:
-	TIM_HandleTypeDef htim;
-	uint32_t channel;
 	void cGpio(TIM_HandleTypeDef* Handle);
 
 
 protected:
-	void setup();
-
+	void virtual setup();
+	TIM_HandleTypeDef htim;
+	uint32_t channel;
 	/*”казатель на функцию старта Ўима*/
 	HAL_StatusTypeDef (*pStart)(TIM_HandleTypeDef *htim, uint32_t Channel);
 	TIM_HandleTypeDef *getHandle(){return &htim;}

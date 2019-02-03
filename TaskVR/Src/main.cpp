@@ -5,6 +5,7 @@
 #include "tim.h"
 //#include "cTim.hpp"
 #include "cPWM.hpp"
+#include "cFreq.hpp"
 #include "usart.h"
 #include "gpio.h"
 
@@ -18,20 +19,31 @@ TIM_Base_InitTypeDef setupTim3 = {
 		  .ClockDivision = TIM_CLOCKDIVISION_DIV1
 };
 
+TIM_Base_InitTypeDef setupTim2 = {
+		  .Prescaler = 0,
+		  .CounterMode = TIM_COUNTERMODE_UP,
+		  .Period = 77,
+		  .ClockDivision = TIM_CLOCKDIVISION_DIV1
+};
+
 int main(void)
 {
 	initPerepherlas();
-	cTim cTim3(TIM3, setupTim3,TIM_CHANNEL_1);
+	//cTim cTim3(TIM3, setupTim3,TIM_CHANNEL_1);
 	cPWM *pwmAmplitude = new cPWM(TIM3, setupTim3,TIM_CHANNEL_1);
-	pwmAmplitude->setupPWM();
+	cFreq *pwmFrq = new cFreq(TIM2, setupTim2,TIM_CHANNEL_1);
+	pwmAmplitude->setup();
 	pwmAmplitude->startPWM();
-	//cTim3.setup();
-	//cTim3.start();
-	//HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-	TIM3->CCR1 = 50;
+	pwmAmplitude->setup_pulseWidth(38);
+	pwmFrq->setupFreq();
+	pwmFrq->startFreq();
+	pwmFrq->setup_pulseWidth(60);
+
+
   while (1)
   {
 	  HAL_UART_Transmit_IT(&huart1, (uint8_t*)"str123\r\n", sizeof("str123\r\n"));
+
 	  HAL_IWDG_Refresh(&hiwdg);
 
 	  HAL_Delay(100);
@@ -49,7 +61,7 @@ void initPerepherlas(void)
 	MX_USART1_UART_Init();
 	MX_ADC3_Init();
 	//MX_TIM3_Init();
-	MX_TIM2_Init();
+	//MX_TIM2_Init();
 	MX_TIM4_Init();
 	MX_TIM5_Init();
 	//MX_IWDG_Init();

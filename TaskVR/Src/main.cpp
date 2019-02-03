@@ -20,14 +20,10 @@ extern UART_HandleTypeDef huart1;
 microrl_t rl;
 microrl_t * prl = &rl;
 
-void print(const char *str)
-{
-	for(uint16_t j = 0x00; str[j] != 0; j++)
-	{
-		while(huart1.gState != HAL_UART_STATE_READY){};
-		HAL_UART_Transmit_DMA(&huart1, (uint8_t *)&str[j], 1);
-	}
-}
+
+
+
+
 
 TIM_Base_InitTypeDef setupTim3 = {
 		  .Prescaler = 0,
@@ -59,10 +55,13 @@ int main(void)
 
 	//cmd
 	microrl_init (prl, print);
+	microrl_set_execute_callback (prl, execute);
+	// set callback for completion
+	microrl_set_complete_callback (prl, complete);
 
   while (1)
   {
-	  print("hello world\r\n");
+	  //print("hello world\r\n");
 	  //cmd_print("hello\r\n");
 	  HAL_Delay(100);
 	  //HAL_UART_Transmit_IT(&huart1, (uint8_t*)"\033[2K", sizeof("\033[2K"));

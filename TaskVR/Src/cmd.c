@@ -7,13 +7,11 @@ static uint32_t cmd_cnt;
 
 static char** compl_world;
 
-void print(const char *str)
+
+void print(const char *str, uint16_t size)
 {
-	for(uint16_t j = 0x00; str[j] != 0; j++)
-	{
-		while(huart1.gState != HAL_UART_STATE_READY){};
-		HAL_UART_Transmit_DMA(&huart1, (uint8_t *)&str[j], 1);
-	}
+	HAL_UART_Transmit_DMA(&huart1, (uint8_t *)str, size);
+	//HAL_UART_Transmit(&huart1, (uint8_t *)str, size,0xFFFF);
 }
 
 
@@ -33,9 +31,9 @@ int execute (int argc, const char * const * argv)
 	        }
 
 			if (0 == found) {
-				print ("Command: '");
-				print ((char*)argv[i]);
-				print ("' not found.\n\r");
+				print ("Command: '", sizeof("Command: '"));
+				print ((char*)argv[i],sizeof(argv[i]));
+				print ("' not found.\n\r", sizeof("' not found.\n\r"));
 			}
 			i++;
 		}
@@ -72,3 +70,15 @@ char ** complete(int argc, const char * const * argv){
 	return compl_world;
 }
 
+
+void sigint (void)
+{
+	print ("^C catched!\n\r", sizeof("^C catched!\n\r"));
+	//print ("catched!\r\n");
+}
+void terminal_clear(void){
+    //print("\033[2J");    // ESC seq for clear entire screen
+    HAL_UART_Transmit_DMA(&huart1, (uint8_t*)"\033[2J", sizeof("\033[2J"));
+    //print("\033[H");     // ESC seq for move cursor at left-top corner
+    HAL_UART_Transmit_DMA(&huart1, (uint8_t*)"\033[H", sizeof("\033[H"));
+}

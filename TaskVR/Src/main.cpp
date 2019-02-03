@@ -19,11 +19,7 @@ extern UART_HandleTypeDef huart1;
 
 microrl_t rl;
 microrl_t * prl = &rl;
-
-
-
-
-
+uint8_t rxData = 0x00;
 
 TIM_Base_InitTypeDef setupTim3 = {
 		  .Prescaler = 0,
@@ -58,12 +54,16 @@ int main(void)
 	microrl_set_execute_callback (prl, execute);
 	// set callback for completion
 	microrl_set_complete_callback (prl, complete);
+	// set callback for Ctrl+C
+	microrl_set_sigint_callback (prl, sigint);
+	HAL_UART_Receive_IT(&huart1, &rxData, sizeof(rxData));
 
   while (1)
   {
-	  //print("hello world\r\n");
-	  //cmd_print("hello\r\n");
-	  HAL_Delay(100);
+	  //print("hello\r\n\0");
+	  //terminal_clear();
+	  HAL_Delay(10);
+	  //print("Board information:\n\r");
 	  //HAL_UART_Transmit_IT(&huart1, (uint8_t*)"\033[2K", sizeof("\033[2K"));
 	  HAL_IWDG_Refresh(&hiwdg);
 
@@ -71,6 +71,13 @@ int main(void)
   }
 }
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	microrl_insert_char(prl, rxData);
+	//HAL_UART_Transmit_DMA(&huart1, &rxData, sizeof(rxData));
+	//print((const char *)&rxData,1);
+	HAL_UART_Receive_IT(&huart1, &rxData, sizeof(rxData));
+}
 
 
 void initPerepherlas(void)

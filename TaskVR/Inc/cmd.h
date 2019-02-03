@@ -17,12 +17,14 @@ struct con_cmd_struct{
     void(*callback)(void);  /* callback function to call when command <command> entered */
 };
 
+typedef void (*PAuxFunc)(uint32_t value);
 
 typedef struct con_cmd_struct   cmd_tab_t;
-
-void print(const char *str);
+void terminal_clear(void);
+void print(const char *str, uint16_t size);
 int execute (int argc, const char * const * argv);
 char ** complete(int argc, const char * const * argv);
+void sigint (void);
 
 #ifdef __cplusplus
 }

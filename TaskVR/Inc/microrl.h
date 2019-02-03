@@ -6,6 +6,9 @@
 #endif
 
 #include "config.h"
+#include "main.h"
+
+extern UART_HandleTypeDef huart1;
 
 #define true  1
 #define false 0
@@ -85,14 +88,14 @@ typedef struct {
 	int cursor;                        // input cursor
 	int (*execute) (int argc, const char * const * argv );            // ptr to 'execute' callback
 	char ** (*get_completion) (int argc, const char * const * argv ); // ptr to 'completion' callback
-	void (*print) (const char *);                                     // ptr to 'print' callback
+	void (*print) (const char *, uint16_t size);                                     // ptr to 'print' callback
 #ifdef _USE_CTLR_C
 	void (*sigint) (void);
 #endif
 } microrl_t;
 
 // init internal data, calls once at start up
-void microrl_init (microrl_t * pThis, void (*print)(const char*));
+void microrl_init (microrl_t * pThis, void (*print)(const char*, uint16_t size));
 
 // set echo mode (true/false), using for disabling echo for password input
 // echo mode will enabled after user press Enter.

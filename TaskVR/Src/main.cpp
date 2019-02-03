@@ -3,15 +3,24 @@
 #include "dma.h"
 #include "iwdg.h"
 #include "tim.h"
+#include "cTim.hpp"
 #include "usart.h"
 #include "gpio.h"
 
 void SystemClock_Config(void);
 void initPerepherlas(void);
 
+TIM_Base_InitTypeDef setupTim3 = {
+		  .Prescaler = 0,
+		  .CounterMode = TIM_COUNTERMODE_UP,
+		  .Period = 77,
+		  .ClockDivision = TIM_CLOCKDIVISION_DIV1
+};
+
 int main(void)
 {
 	initPerepherlas();
+	cTim cTim3(TIM3, setupTim3);
 
   while (1)
   {
@@ -32,11 +41,11 @@ void initPerepherlas(void)
 	MX_DMA_Init();
 	MX_USART1_UART_Init();
 	MX_ADC3_Init();
-	MX_TIM3_Init();
+	//MX_TIM3_Init();
 	MX_TIM2_Init();
 	MX_TIM4_Init();
 	MX_TIM5_Init();
-	MX_IWDG_Init();
+	//MX_IWDG_Init();
 }
 
 void SystemClock_Config(void)

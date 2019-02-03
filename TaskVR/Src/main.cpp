@@ -22,14 +22,13 @@ TIM_Base_InitTypeDef setupTim3 = {
 TIM_Base_InitTypeDef setupTim2 = {
 		  .Prescaler = 0,
 		  .CounterMode = TIM_COUNTERMODE_UP,
-		  .Period = 77,
+		  .Period = 500,
 		  .ClockDivision = TIM_CLOCKDIVISION_DIV1
 };
 
 int main(void)
 {
 	initPerepherlas();
-	//cTim cTim3(TIM3, setupTim3,TIM_CHANNEL_1);
 	cPWM *pwmAmplitude = new cPWM(TIM3, setupTim3,TIM_CHANNEL_1);
 	cFreq *pwmFrq = new cFreq(TIM2, setupTim2,TIM_CHANNEL_1);
 	pwmAmplitude->setup();
@@ -37,7 +36,8 @@ int main(void)
 	pwmAmplitude->setup_pulseWidth(38);
 	pwmFrq->setupFreq();
 	pwmFrq->startFreq();
-	pwmFrq->setup_pulseWidth(60);
+	pwmFrq->setup_pulseWidth(20);
+	pwmFrq->setup_pulseFreq(8000);
 
 
   while (1)

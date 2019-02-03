@@ -3,7 +3,8 @@
 #include "dma.h"
 #include "iwdg.h"
 #include "tim.h"
-#include "cTim.hpp"
+//#include "cTim.hpp"
+#include "cPWM.hpp"
 #include "usart.h"
 #include "gpio.h"
 
@@ -21,8 +22,11 @@ int main(void)
 {
 	initPerepherlas();
 	cTim cTim3(TIM3, setupTim3,TIM_CHANNEL_1);
-	cTim3.setup();
-	cTim3.start();
+	cPWM *pwmAmplitude = new cPWM(TIM3, setupTim3,TIM_CHANNEL_1);
+	pwmAmplitude->setupPWM();
+	pwmAmplitude->startPWM();
+	//cTim3.setup();
+	//cTim3.start();
 	//HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 	TIM3->CCR1 = 50;
   while (1)

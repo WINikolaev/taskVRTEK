@@ -4,7 +4,8 @@
 
 HAL_StatusTypeDef cTim::start()
 {
-	  return HAL_TIM_PWM_Start(&this->htim, this->channel);
+	  //return HAL_TIM_PWM_Start(&this->htim, this->channel);
+	return this->pStart(&this->htim, this->channel);
 }
 
 void cTim::setup()
@@ -91,6 +92,7 @@ void cTim::cGpio(TIM_HandleTypeDef* Handle)
 
 cTim::cTim(TIM_HandleTypeDef &Handle)
 {
+
 }
 
 /*Ругается падла, но все равно инициалезирует то что нужно*/
@@ -99,7 +101,7 @@ cTim::cTim(TIM_TypeDef *nTim, TIM_Base_InitTypeDef &setupTim, uint32_t Channel) 
 {
 	//htim.Instance = nTim;
 	//htim.Init = setupTim;
-	funcStart = HAL_TIM_PWM_Start;
+	pStart = HAL_TIM_PWM_Start;
 }
 
 cTim::~cTim()

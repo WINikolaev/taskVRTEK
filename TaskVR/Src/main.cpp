@@ -4,6 +4,7 @@
 #include "iwdg.h"
 #include "tim.h"
 //#include "cTim.hpp"
+#include "terminal.h"
 #include "cPWM.hpp"
 #include "cFreq.hpp"
 #include "usart.h"
@@ -43,10 +44,11 @@ int main(void)
   while (1)
   {
 	  HAL_UART_Transmit_IT(&huart1, (uint8_t*)"str123\r\n", sizeof("str123\r\n"));
-
+	  HAL_Delay(100);
+	  //HAL_UART_Transmit_IT(&huart1, (uint8_t*)"\033[2K", sizeof("\033[2K"));
 	  HAL_IWDG_Refresh(&hiwdg);
 
-	  HAL_Delay(100);
+
   }
 }
 

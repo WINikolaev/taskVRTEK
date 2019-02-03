@@ -9,11 +9,13 @@
 #include "microrl.h"
 #include "usart.h"
 #include "config.h"
+#include "stdlib.h"
 
 extern uint16_t ADC_Data;
+extern uint16_t AMPLITUDE;
 extern uint16_t FREQ;
 extern uint16_t PULSE_WIDTH;
-
+extern microrl_t * prl;
 struct con_cmd_struct{
     uint32_t magic;         /* should always be CMD_MAGIC_HEADER for valid command */
     uint8_t command[16];    /* command name for typing thru terminal */

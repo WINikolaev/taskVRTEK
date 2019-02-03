@@ -11,6 +11,7 @@ static char** compl_world;
 void print(const char *str, uint16_t size)
 {
 	//HAL_UART_Transmit_DMA(&huart1, (uint8_t *)str, size);
+	/*ѕо хорошему надо писать свою передачу данных, а не пользоватьс€ этой херней*/
 	HAL_UART_Transmit(&huart1, (uint8_t *)str, size,0xFFFF);
 }
 
@@ -73,8 +74,57 @@ char ** complete(int argc, const char * const * argv){
 
 void sigint (void)
 {
-	print ("^C catched!\n\r", sizeof("^C catched!\n\r"));
-	//print ("catched!\r\n");
+	//print ("^C catched!\n\r", sizeof("^C catched!\n\r"));
+	if(prl->cmdlen == 0){return;}
+
+	for(uint16_t i = 0x00; prl->cmdlen != i; i++)
+	{
+		char strok[10];
+		volatile int var;
+		volatile char abc = prl->cmdline[i];
+		if(abc != 'A' && abc != 'F' && abc != 'P'){
+			continue;
+		}else{
+
+			if(abc == 'A'){
+				memmove(strok, prl->cmdline, i);
+				var = atoi(strok);
+			}else if(abc == 'F'){
+				memmove(strok, prl->cmdline, i);
+				var = atoi(strok);
+			}else if(abc == 'P'){
+				memmove(strok, prl->cmdline, i);
+				var = atoi(strok);
+			}
+			/*
+			switch (abc){
+			case 'A':
+
+				memmove(strok, prl->cmdline, i);
+				var = atoi(strok);
+				break;
+
+			case 'F':
+				memmove(strok, prl->cmdline, i);
+				var = atoi(strok);
+
+				break;
+			case 'P':
+				memmove(strok, prl->cmdline, i);
+				var = atoi(strok);
+
+				break;
+			default:
+				break;
+			}
+			*/
+		}
+	}
+	terminal_clear_curline();
+	memset(prl->cmdline,0,sizeof(prl->cmdlen));
+	prl->cmdlen = 0;
+	prl->cursor = 0;
+	return;
 }
 void terminal_clear(void){
     print("\033[2J", sizeof("\033[2J"));    // ESC seq for clear entire screen
@@ -108,7 +158,8 @@ void aux_info(uint32_t value)
 
 void con_info(void){
     terminal_clear();
-    print ("info: \n\r", sizeof("info: \n\r"));
+    //print ("info: \n\r", sizeof("info: \n\r"));
+    terminal_goto(0, 2);
     print ("Amplitude\t Frequency\t Pulse width\t\r\n", sizeof("Amplitude\t Frequency\t pulse width\t\r\n"));
     //terminal_run_aux_task(aux_info);
 }
@@ -121,9 +172,12 @@ void cmd_show()
 	terminal_clear_curline();
 	char str[128];
 	float u = ((float)ADC_Data)*3/4096;
-	uint16_t size = sprintf(str,"%.2f\t\t %i\t\t %i\t\t",u, FREQ, PULSE_WIDTH);
+	uint16_t size = sprintf(str,"%i(%.2f)\t %i\t\t %i\t\t",AMPLITUDE ,u, FREQ, PULSE_WIDTH);
 
 	print(&str,size);
+
+	terminal_goto(prl->cursor+1, 1);
+
 }
 
 

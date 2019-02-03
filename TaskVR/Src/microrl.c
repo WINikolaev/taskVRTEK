@@ -666,8 +666,6 @@ void microrl_insert_char (microrl_t * pThis, int ch)
 			case KEY_ETX:
 			if (pThis->sigint != NULL)
 				pThis->sigint();
-
-			con_info();
 			break;
 #endif
 			//-----------------------------------------------------

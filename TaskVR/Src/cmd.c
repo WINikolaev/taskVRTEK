@@ -10,8 +10,8 @@ static char** compl_world;
 
 void print(const char *str, uint16_t size)
 {
-	HAL_UART_Transmit_DMA(&huart1, (uint8_t *)str, size);
-	//HAL_UART_Transmit(&huart1, (uint8_t *)str, size,0xFFFF);
+	//HAL_UART_Transmit_DMA(&huart1, (uint8_t *)str, size);
+	HAL_UART_Transmit(&huart1, (uint8_t *)str, size,0xFFFF);
 }
 
 
@@ -77,8 +77,53 @@ void sigint (void)
 	//print ("catched!\r\n");
 }
 void terminal_clear(void){
-    //print("\033[2J");    // ESC seq for clear entire screen
-    HAL_UART_Transmit_DMA(&huart1, (uint8_t*)"\033[2J", sizeof("\033[2J"));
-    //print("\033[H");     // ESC seq for move cursor at left-top corner
-    HAL_UART_Transmit_DMA(&huart1, (uint8_t*)"\033[H", sizeof("\033[H"));
+    print("\033[2J", sizeof("\033[2J"));    // ESC seq for clear entire screen
+    //HAL_UART_Transmit_DMA(&huart1, (uint8_t*)"\033[2J", sizeof("\033[2J"));
+    print("\033[H", sizeof("\033[H"));     // ESC seq for move cursor at left-top corner
+    //HAL_UART_Transmit_DMA(&huart1, (uint8_t*)"\033[H", sizeof("\033[H"));
 }
+
+void terminal_run_aux_task(PAuxFunc pFunc){
+    pAux = &pFunc;
+}
+
+void terminal_clear_curline(void)
+{
+	print ("\033[2K",sizeof("\033[2K"));
+}
+
+void terminal_goto(uint32_t x, uint32_t y)
+{
+	char tmp[16];
+	uint16_t size = sprintf(tmp, "\033[%i;%iH", y, x);    /* set X, Y pos */
+	print(tmp,size);
+}
+
+void aux_info(uint32_t value)
+{
+	terminal_clear();
+	print("aux\r\n",sizeof("aux\r\n"));
+
+}
+
+void con_info(void){
+    terminal_clear();
+    print ("info: \n\r", sizeof("info: \n\r"));
+    print ("Amplitude\t Frequency\t Pulse width\t\r\n", sizeof("Amplitude\t Frequency\t pulse width\t\r\n"));
+    //terminal_run_aux_task(aux_info);
+}
+
+
+void cmd_show()
+{
+	//terminal_clear();
+	terminal_goto(0, 3);
+	terminal_clear_curline();
+	char str[128];
+	float u = ((float)ADC_Data)*3/4096;
+	uint16_t size = sprintf(str,"%.2f\t\t %i\t\t %i\t\t",u, FREQ, PULSE_WIDTH);
+
+	print(&str,size);
+}
+
+

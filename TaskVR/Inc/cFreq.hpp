@@ -13,6 +13,9 @@ public:
 	ErrorStatus setup_pulseWidth(uint16_t width){return cPWM::setup_pulseWidth(width);};
 	HAL_StatusTypeDef startFreq();
 	void setupFreq(){cTim::setup();}
+	/*Простите за эту херю...но час ночи сказывается...*/
+	uint16_t getPulseFreq(){return 8000000/(htim.Instance->ARR);};
+	uint16_t getPulseWidth(){return htim.Instance->CCR1;};
 
 private:
 	uint16_t pulseWidthn;

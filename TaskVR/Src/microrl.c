@@ -303,7 +303,7 @@ static void terminal_reset_cursor (microrl_t * pThis)
 // print cmdline to screen, replace '\0' to wihitespace 
 static void terminal_print_line (microrl_t * pThis, int pos, int cursor)
 {
-	//pThis->print ("\033[K", sizeof("\033[K"));    // delete all from cursor to end
+	pThis->print ("\033[K", sizeof("\033[K"));    // delete all from cursor to end
 	//HAL_UART_Transmit_DMA(&huart1, (uint8_t*)"\033[K", sizeof("\033[K"));
 	char nch [] = {0,0};
 	int i;
@@ -314,8 +314,8 @@ static void terminal_print_line (microrl_t * pThis, int pos, int cursor)
 		pThis->print (nch, sizeof(nch));
 	}
 
-	terminal_reset_cursor (pThis);
-	terminal_move_cursor (pThis, cursor);
+	//terminal_reset_cursor (pThis);
+	//terminal_move_cursor (pThis, cursor);
 }
 
 //*****************************************************************************
@@ -666,6 +666,8 @@ void microrl_insert_char (microrl_t * pThis, int ch)
 			case KEY_ETX:
 			if (pThis->sigint != NULL)
 				pThis->sigint();
+
+			con_info();
 			break;
 #endif
 			//-----------------------------------------------------

@@ -12,6 +12,7 @@ public:
 
 	HAL_StatusTypeDef startPWM();
 	void setup(){cTim::setup();}
+	uint16_t getPulseWidth(){return htim.Instance->CCR1;};
 
 private:
 	uint16_t pulseWidthn;

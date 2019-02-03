@@ -3,15 +3,31 @@
 #include "dma.h"
 #include "iwdg.h"
 #include "tim.h"
-//#include "cTim.hpp"
-#include "terminal.h"
+#include "cUSART.hpp"
 #include "cPWM.hpp"
 #include "cFreq.hpp"
 #include "usart.h"
 #include "gpio.h"
+#include "microrl.h"
+#include "config.h"
+#include "cmd.h"
 
 void SystemClock_Config(void);
 void initPerepherlas(void);
+
+extern UART_HandleTypeDef huart1;
+
+microrl_t rl;
+microrl_t * prl = &rl;
+
+void print(const char *str)
+{
+	for(uint16_t j = 0x00; str[j] != 0; j++)
+	{
+		while(huart1.gState != HAL_UART_STATE_READY){};
+		HAL_UART_Transmit_DMA(&huart1, (uint8_t *)&str[j], 1);
+	}
+}
 
 TIM_Base_InitTypeDef setupTim3 = {
 		  .Prescaler = 0,
@@ -32,6 +48,7 @@ int main(void)
 	initPerepherlas();
 	cPWM *pwmAmplitude = new cPWM(TIM3, setupTim3,TIM_CHANNEL_1);
 	cFreq *pwmFrq = new cFreq(TIM2, setupTim2,TIM_CHANNEL_1);
+	//c_usart *cmd = new c_usart(rl, huart1);
 	pwmAmplitude->setup();
 	pwmAmplitude->startPWM();
 	pwmAmplitude->setup_pulseWidth(38);
@@ -40,10 +57,13 @@ int main(void)
 	pwmFrq->setup_pulseWidth(20);
 	pwmFrq->setup_pulseFreq(8000);
 
+	//cmd
+	microrl_init (prl, print);
 
   while (1)
   {
-	  HAL_UART_Transmit_IT(&huart1, (uint8_t*)"str123\r\n", sizeof("str123\r\n"));
+	  print("hello world\r\n");
+	  //cmd_print("hello\r\n");
 	  HAL_Delay(100);
 	  //HAL_UART_Transmit_IT(&huart1, (uint8_t*)"\033[2K", sizeof("\033[2K"));
 	  HAL_IWDG_Refresh(&hiwdg);

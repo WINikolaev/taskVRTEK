@@ -20,11 +20,14 @@ TIM_Base_InitTypeDef setupTim3 = {
 int main(void)
 {
 	initPerepherlas();
-	cTim cTim3(TIM3, setupTim3);
-
+	cTim cTim3(TIM3, setupTim3,TIM_CHANNEL_1);
+	cTim3.setup();
+	cTim3.start();
+	//HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+	TIM3->CCR1 = 50;
   while (1)
   {
-	  HAL_UART_Transmit_IT(&huart1, (uint8_t*)"str\r\n", sizeof("str\r\n"));
+	  HAL_UART_Transmit_IT(&huart1, (uint8_t*)"str123\r\n", sizeof("str123\r\n"));
 	  HAL_IWDG_Refresh(&hiwdg);
 
 	  HAL_Delay(100);

@@ -1,11 +1,17 @@
 #include "cTim.hpp"
 
+
+
+HAL_StatusTypeDef cTim::start()
+{
+	  return HAL_TIM_PWM_Start(&this->htim, this->channel);
+}
+
 void cTim::setup()
 {
 	  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 	  TIM_MasterConfigTypeDef sMasterConfig = {0};
 	  TIM_OC_InitTypeDef sConfigOC = {0};
-
 
 	  if (HAL_TIM_Base_Init(&this->htim) != HAL_OK)
 	  {
@@ -88,9 +94,12 @@ cTim::cTim(TIM_HandleTypeDef &Handle)
 }
 
 /*Ругается падла, но все равно инициалезирует то что нужно*/
-cTim::cTim(TIM_TypeDef *nTim, TIM_Base_InitTypeDef &setupTim) : htim{.Instance = nTim, .Init = setupTim}
+cTim::cTim(TIM_TypeDef *nTim, TIM_Base_InitTypeDef &setupTim, uint32_t Channel) : htim{.Instance = nTim, .Init = setupTim}, channel(Channel)
+//cTim::cTim(TIM_TypeDef *nTim, TIM_Base_InitTypeDef &setupTim)
 {
-
+	//htim.Instance = nTim;
+	//htim.Init = setupTim;
+	funcStart = HAL_TIM_PWM_Start;
 }
 
 cTim::~cTim()

@@ -1,0 +1,25 @@
+﻿Field=#~Integer~#~50|Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~AD.PrjPcb|ReportField=ProjectFullPath~C:\Code\taskVRTEK\AD\AD.PrjPcb|ReportField=Title~Bill of Materials For Project [AD.PrjPcb] (No PCB Document Selected)|ReportField=TotalQuantity~75|ReportField=ReportTime~6:12:33|ReportField=ReportDate~04.02.2019|ReportField=ReportDateTime~04.02.2019 6:12:33|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~Address1|ReportField=Address2~Address2|ReportField=Address3~Address3|ReportField=Address4~Address4|ReportField=Application_BuildNumber~|ReportField=ApprovedBy~|ReportField=Author~|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=ConfigurationParameters~|ReportField=CurrentDate~04.02.2019|ReportField=CurrentTime~6:12:24|ReportField=Date~|ReportField=DocumentFullPathAndName~C:\Code\taskVRTEK\AD\p1.SchDoc|ReportField=DocumentName~p1.SchDoc|ReportField=DocumentNumber~АБВГ.123456.001 Э3|ReportField=DocumentType~Схема электрическая принципиальная|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=EngineerName~|ReportField=FirstReferrence~АБВГ.123456.001|ReportField=ImagePath~|ReportField=Letter1Column~|ReportField=Letter2Column~|ReportField=Letter3Column~|ReportField=Mass~|ReportField=ModifiedDate~04.02.2019|ReportField=NormInspection~|ReportField=Organization~|ReportField=ProcessInspection~|ReportField=ProjectName~AD.PrjPcb|ReportField=Revision~|ReportField=Rule~|ReportField=Scale~1:1|ReportField=SheetNumber~1|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~|ReportField=Title2str~|ReportField=DataSourceFileName~AD.PrjPcb|ReportField=DataSourceFullPath~C:\Code\taskVRTEK\AD\AD.PrjPcb|ReportField=PCBConfigurationName~Sources|ReportField=Item~|ReportField=ItemRevision~|ReportField=ItemAndRevision~|ReportField=ItemRevisionBase~|ReportField=ItemRevisionLevel1~|ReportField=ItemRevisionLevel2~|ReportField=ItemRevisionLevel1AndBase~|ReportField=ItemRevisionLevel2AndLevel1~
+1|22 uF||C1|TANTAL_A|TantalCap|1
+2|0.1 uF||C2, C4|CH0603C|Capacitor|2
+3|10 uF||C3, C5|TANTAL_A|TantalCap|2
+4|1 uF||C6|CH0603C|Capacitor|1
+5|39 pF||C7|CH0603C|Capacitor|1
+6|TPS561201DDCT|Step-down|D1|SOT23-6|TPS561201DDCT|1
+7|1 mH||L1|IND: SDR0403|Inductor|1
+8|DLW21SN900SQ2L||L2, L3, L4, L5, L7, L8, L9, L10, L11, L12, L13, L14, L15, L16, L17|TRANS: DLW21|EMI bead|15
+9|3 uH||L6|IND: SDR0403|Inductor|1
+10|||R1|CH0603R|Resistor|1
+11|46K||R2, R5|CH0603R|Resistor|2
+12|510||R3, R4, R6, R8, R10, R12, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25|CH0603R|Resistor|18
+13|2K||R7|CH0603R|Resistor|1
+14|10 K||R9|CH0603R|Resistor|1
+15|33k2||R11|CH0603R|Resistor|1
+16|10K||R13|CH0603R|Resistor|1
+17|ADG706BRUZ|1.8 to 5.5 V / 2.5 V, CMOS Low-Voltage 2.5 Ohm, 16-Channel Multiplexer, -40 to 85 degC, 28-pin SOP (RU-28), Tube|U1|ADI-RU-28_N|ADG706BRUZ|1
+18|STM32F429NIH6|ARM Cortex-M4 32-bit MCU+FPU, 225 DMIPS, 2048 kB Flash, 256 kB Internal RAM, 168 I/Os, 216-pin TFBGA, -40 to 85 degC, Tray|U2|STM-TFBGA216|STM32F429NIH6|1
+19|||VD1|SOD123|Diod|1
+20|SS14FL||VD2|SOD123F|Diod Schottky|1
+21||Bipolar|VT1, VT2, VT3, VT4, VT5, VT6, VT7, VT8, VT9, VT10, VT11, VT12, VT13, VT14, VT15, VT16, VT17, VT18|SOT89_123|NPN|18
+22|||X1|CON: 0533750210|2-Connector|1
+23|||X2|CON: IDC-18MS|18-Connector|1
+24|USART||X3|CON: WJ06-02P|2-Connector|1

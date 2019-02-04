@@ -71,20 +71,15 @@ int main(void)
 	  /*хз почему он в непрерывном режиме перестал работать....будем дергать вручную раз такое дело*/
 	  HAL_ADC_Start_DMA(&hadc3,(uint32_t*) &ADC_Data,1);
 	  if(pAux != NULL){pAux(0);};
-	  AMPLITUDE = pwmAmplitude->getPulseWidth();
-	  FREQ = pwmFrq->getPulseFreq();
-	  PULSE_WIDTH = pwmFrq->getPulseWidth();
+
+	  AMPLITUDE 	= pwmAmplitude->getPulseWidth();
+	  FREQ 			= pwmFrq->getPulseFreq();
+	  PULSE_WIDTH 	= pwmFrq->getPulseWidth();
 	  cmd_show();
 
-	  //u = ((float)ADC_Data)*3/4096;
-	  //sprintf(str,"%.2f",u);
 	  HAL_Delay(100);
-	  //print("Board information:\n\r");
-	  //HAL_UART_Transmit_IT(&huart1, (uint8_t*)"\033[2K", sizeof("\033[2K"));
 	  HAL_IWDG_Refresh(&hiwdg);
 	  HAL_UART_Receive_IT(&huart1, &rxData, sizeof(rxData));
-
-
   }
 }
 

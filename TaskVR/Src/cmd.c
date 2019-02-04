@@ -85,16 +85,21 @@ void sigint (void)
 		if(abc != 'A' && abc != 'F' && abc != 'P'){
 			continue;
 		}else{
-
-			if(abc == 'A'){
+			/*пздц....вот только так заработало...я манал,....*/
+			if(abc == 65){
 				memmove(strok, prl->cmdline, i);
 				var = atoi(strok);
-			}else if(abc == 'F'){
+				setAmplitude(var);
+			}
+			if(abc == 'F'){
 				memmove(strok, prl->cmdline, i);
 				var = atoi(strok);
-			}else if(abc == 'P'){
+				setFreq(var);
+			}
+			if(abc == 'P'){
 				memmove(strok, prl->cmdline, i);
 				var = atoi(strok);
+				setPW(var);
 			}
 			/*
 			switch (abc){

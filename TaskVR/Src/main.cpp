@@ -40,11 +40,13 @@ TIM_Base_InitTypeDef setupTim2 = {
 		  .ClockDivision = TIM_CLOCKDIVISION_DIV1
 };
 
+cPWM *pwmAmplitude = new cPWM(TIM3, setupTim3,TIM_CHANNEL_1);
+cFreq *pwmFrq = new cFreq(TIM2, setupTim2,TIM_CHANNEL_1);
+
 int main(void)
 {
 	initPerepherlas();
-	cPWM *pwmAmplitude = new cPWM(TIM3, setupTim3,TIM_CHANNEL_1);
-	cFreq *pwmFrq = new cFreq(TIM2, setupTim2,TIM_CHANNEL_1);
+
 	//c_usart *cmd = new c_usart(rl, huart1);
 	pwmAmplitude->setup();
 	pwmAmplitude->startPWM();
@@ -84,6 +86,22 @@ int main(void)
 
 
   }
+}
+
+
+void setAmplitude(uint16_t var)
+{
+	pwmAmplitude->setup_pulseWidth(var);
+}
+
+void setFreq(uint16_t var)
+{
+	pwmFrq->setup_pulseFreq(var);
+}
+
+void setPW(uint16_t var)
+{
+	pwmFrq->setup_pulseWidth(var);
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
